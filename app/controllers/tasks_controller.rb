@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.reverse
     render :partial => 'index'
   end
 
