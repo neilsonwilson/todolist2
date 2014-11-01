@@ -13,3 +13,23 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+var loadTasks = function () {
+  $.ajax({
+    url : '/tasks/'
+  }).done(function( data ) {
+    $('#tasks').html(data);
+  });
+};
+
+$(document).ready(function () {
+  loadTasks();
+});
+
+$(document).ready(function() {
+  $("form.new_task").bind("ajax:success", function(event, xhr, settings) {
+    loadTasks();
+    $("form.new_task")[0].reset();
+  });
+});

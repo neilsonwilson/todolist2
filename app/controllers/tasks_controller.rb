@@ -1,7 +1,4 @@
 class TasksController < ApplicationController
-  def index
-  end
-
   def create
     @task = Task.new(task_params)
     if @task.save
@@ -15,6 +12,8 @@ class TasksController < ApplicationController
   end
 
   def index
+    @tasks = Task.all
+    render :partial => 'index'
   end
 
   def show
