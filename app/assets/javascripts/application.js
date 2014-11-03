@@ -14,12 +14,12 @@
 //= require jquery_ujs
 //= require_tree .
 
-
 var loadTasks = function () {
   $.ajax({
     url : '/tasks/'
   }).done(function( data ) {
     $('#tasks').html(data);
+    addEventListeners();
   });
 };
 
@@ -33,3 +33,20 @@ $(document).ready(function() {
     $("form.new_task")[0].reset();
   });
 });
+
+var archiveTask = function (_id) {
+  $.ajax({
+    url : '/tasks/archive/' + _id,
+    method : 'post'
+  }).done(function (data) {
+    loadTasks();
+    addEventListeners();
+    console.log(data);
+  });
+};
+
+var addEventListeners = function () {
+  $('.archive').on('click',function(e){
+    archiveTask($(this).data('id'));
+  });
+};
